@@ -1,0 +1,58 @@
+---
+title: "Hoja de Trabajo 2"
+author: "Josué Sagastume, Cristopher Barrios, Diego Ruiz"
+date: "18/2/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE}
+library(tidyverse)
+library(NbClust)
+library(fpc)
+movies <- read.csv("tmdb-movies.csv")
+```
+
+### Preprocesamiento del dataset
+#### 1. Variables que no aportan informacion a la generacion de grupos
+
+Id, imdb_id, original_title, cast, homepage, director, tagline, keywords, overview, genres, production_companies, release_date. Ya que estas no son variables cuantitativas no se pueden agrupar y no aportarian ningun valor a los clusters. Sin embargo, al momento de interpretar la informacion se van a ser necesarias.
+
+```{r echo=FALSE}
+moviesCuanti <- select(movies, popularity, budget, revenue, runtime, vote_average, release_year)
+
+moviesCuantiCompleto <- moviesCuanti[complete.cases(moviesCuanti),]
+```
+
+#### 2. Numero de grupos a formar
+```{r echo=FALSE}
+km <- kmeans(moviesCuantiCompleto,3,iter.max=10)
+
+wss <- (nrow(moviesCuantiCompleto)-1)*sum(apply(moviesCuantiCompleto,2,var))
+
+for (i in 2:25) 
+  wss[i] <- sum(kmeans(moviesCuantiCompleto, centers=i)$withinss)
+
+plot(1:25, wss, type="b", xlab="Cantidad de Clusters",  ylab="Cantidad de suma de cuadrados")
+
+noClusters <- 4
+```
+
+Basándonos en la gráfica de codo, se puede determinar que la cantidad óptima de clusters a utilizar es de 4.
+
+#### 3. Utilice 3 algoritmos existentes para agrupamiento. Compare los resultados por cada uno
+##### a. Método de agrupamiento con Kmeans
+```{r echo=FALSE}
+km<-kmeans(moviesCuantiCompleto,noClusters,iter.max =100)
+
+moviesCuantiCompleto$grupo<-km$cluster
+
+plotcluster(moviesCuantiCompleto,km$cluster) #grafica la ubicaciÃ³n de los clusters
+```
+
+
+
+

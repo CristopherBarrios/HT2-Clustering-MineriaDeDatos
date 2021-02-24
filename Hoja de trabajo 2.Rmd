@@ -33,8 +33,6 @@ moviesCuantiCompleto <- moviesCuanti[complete.cases(moviesCuanti),]
 
 #### 2. Numero de grupos a formar
 ```{r echo=FALSE}
-km <- kmeans(moviesCuantiCompleto,3,iter.max=10)
-
 wss <- (nrow(moviesCuantiCompleto)-1)*sum(apply(moviesCuantiCompleto,2,var))
 
 for (i in 2:25) 
@@ -49,6 +47,7 @@ Basándonos en la gráfica de codo, se puede determinar que la cantidad óptima 
 
 #### 3. Utilice 3 algoritmos existentes para agrupamiento. Compare los resultados por cada uno
 ##### a. Método de agrupamiento con Kmeans
+
 ```{r echo=FALSE}
 km<-kmeans(moviesCuantiCompleto,noClusters,iter.max =100)
 movies$grupo <- km$cluster
@@ -65,7 +64,7 @@ plotcluster(moviesCuanti,fcm$cluster)
 
 #### c. Método de Mix of Gaussians
 ```{r echo=FALSE}
-mc<-Mclust(moviesCuantiCompleto,noClusters)
+mc<-Mclust(moviesCuantiCompleto,4)
 plot(mc, what = "classification", main="MClust Classification")
 movies$mxGau<-mc$classification
 g1MC<-movies[movies$mxGau==1,]
@@ -94,5 +93,4 @@ silmg<-silhouette(mc$classification,dist(moviesCuantiCompleto))
 mean(silmg[,3]) #0.50, no es la mejor particiÃ³n pero no estÃ¡ mal
 
 ```
-
 

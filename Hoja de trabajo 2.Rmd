@@ -75,26 +75,28 @@ plotcluster(moviesCuanti,fcm$cluster)
 
 ### 4. Calidad del agrupamiento hecho por cada algoritmo con el método de la silueta
 #### a. Silueta para método de agrupamiento con Kmeans
+En base a la información obtenida por el método de silueta sobre el método de agrupamiento con Kmeans y se determinó que es una muy buena disribución, es un valor muy cercano a 1 positivo por lo que los clusters están bien distaciados unos de otros y claramente distinguidos. 
 ```{r echo=FALSE}
 silkm<-silhouette(km$cluster,dist(moviesCuantiCompleto))
-mean(silkm[,3]) #0.55, no es la mejor particiÃ³n pero no estÃ¡ mal
+mean(silkm[,3]) #0.79
 ```
 
 #### b. Silueta para método de agrupamiento con Fuzzy Cmeans
+Se realizó el mismo método de silueta sobre el método de agrupamiento con Fuzzy Cmeans y se determinó que, de la misma forma que el Kmeans, es una muy buena disribución, por lo tanto, por lo que los clusters están bien determinados y claramente se distinguen uno del otro.
 ```{r echo=FALSE}
 silfcm<-silhouette(fcm$cluster,dist(moviesCuantiCompleto))
-mean(silfcm[,3]) #0.54, no es la mejor particiÃ³n pero no estÃ¡ mal
-
+mean(silfcm[,3]) #0.77
 ```
 
 #### c. Silueta para método de agrupamiento de mix of Gaussians
+Por último, se realizó el método de silueta sobre el método de agrupamiento de mix of Gaussians y se obtuvo un puntaje muy cercano a 0, por lo que, a pesar de que los clusters están asignados de forma correcta (el valor no es cercano a -1) pero los clusters no están bien distanciados y por lo tanto, l mayoría de clusters son indiferentes unos con otros.
 ```{r echo=FALSE}
-#silmg<-silhouette(mc$classification,dist(moviesCuantiCompleto))
-#mean(silmg[,3]) #0.50, no es la mejor particiÃ³n pero no estÃ¡ mal
-
+silmg<-silhouette(mc$classification,dist(moviesCuantiCompleto))
+mean(silmg[,3]) #-0.01
 ```
+
 ### 5. grupos  basado  en  el  conocimiento  que  tiene  de  los  datos. 
-Con respecto a los datos podemos sacar vasado del conocimiento la media y la mediana con median y median
+Con respecto a los datos podemos sacar basado del conocimiento la media y la mediana con mean y median
 
 #Mediana
 ```{r echo=FALSE}

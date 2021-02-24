@@ -64,13 +64,13 @@ plotcluster(moviesCuanti,fcm$cluster)
 
 #### c. Método de Mix of Gaussians
 ```{r echo=FALSE}
-mc<-Mclust(moviesCuantiCompleto,4)
-plot(mc, what = "classification", main="MClust Classification")
-movies$mxGau<-mc$classification
-g1MC<-movies[movies$mxGau==1,]
-g2MC<-movies[movies$mxGau==2,]
-g3MC<-movies[movies$mxGau==3,]
-g4MC<-movies[movies$mxGau==4,]
+#mc<-Mclust(moviesCuantiCompleto,4)
+#plot(mc, what = "classification", main="MClust Classification")
+#movies$mxGau<-mc$classification
+#g1MC<-movies[movies$mxGau==1,]
+#g2MC<-movies[movies$mxGau==2,]
+#g3MC<-movies[movies$mxGau==3,]
+#g4MC<-movies[movies$mxGau==4,]
 ```
 
 ### 4. Calidad del agrupamiento hecho por cada algoritmo con el método de la silueta
@@ -89,8 +89,8 @@ mean(silfcm[,3]) #0.54, no es la mejor particiÃ³n pero no estÃ¡ mal
 
 #### c. Silueta para método de agrupamiento de mix of Gaussians
 ```{r echo=FALSE}
-silmg<-silhouette(mc$classification,dist(moviesCuantiCompleto))
-mean(silmg[,3]) #0.50, no es la mejor particiÃ³n pero no estÃ¡ mal
+#silmg<-silhouette(mc$classification,dist(moviesCuantiCompleto))
+#mean(silmg[,3]) #0.50, no es la mejor particiÃ³n pero no estÃ¡ mal
 
 ```
 

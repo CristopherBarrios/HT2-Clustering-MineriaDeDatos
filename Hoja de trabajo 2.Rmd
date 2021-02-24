@@ -10,9 +10,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r echo=FALSE}
+library(cluster) #Para calcular la silueta
+library(e1071)#para cmeans
+library(mclust) #mixtures of gaussians
+library(fpc) #para hacer el plotcluster
+library(NbClust) #Para determinar el número de clusters óptimo
+library(factoextra) #Para hacer gráficos bonitos de clustering
 library(tidyverse)
-library(NbClust)
-library(fpc)
 movies <- read.csv("tmdb-movies.csv")
 ```
 
@@ -47,12 +51,48 @@ Basándonos en la gráfica de codo, se puede determinar que la cantidad óptima 
 ##### a. Método de agrupamiento con Kmeans
 ```{r echo=FALSE}
 km<-kmeans(moviesCuantiCompleto,noClusters,iter.max =100)
-
-moviesCuantiCompleto$grupo<-km$cluster
-
-plotcluster(moviesCuantiCompleto,km$cluster) #grafica la ubicaciÃ³n de los clusters
+movies$grupo <- km$cluster
+plotcluster(moviesCuantiCompleto,km$cluster)
 ```
 
+#### b. Método de Fuzzy Cmeans
+```{r echo=FALSE}
+fcm<-cmeans(moviesCuantiCompleto,noClusters)
+movies$FCGrupos<-fcm$cluster
+movies<-cbind(movies,fcm$membership)
+plotcluster(moviesCuanti,fcm$cluster)
+```
 
+#### c. Método de Mix of Gaussians
+```{r echo=FALSE}
+mc<-Mclust(moviesCuantiCompleto,noClusters)
+plot(mc, what = "classification", main="MClust Classification")
+movies$mxGau<-mc$classification
+g1MC<-movies[movies$mxGau==1,]
+g2MC<-movies[movies$mxGau==2,]
+g3MC<-movies[movies$mxGau==3,]
+g4MC<-movies[movies$mxGau==4,]
+```
+
+### 4. Calidad del agrupamiento hecho por cada algoritmo con el método de la silueta
+#### a. Silueta para método de agrupamiento con Kmeans
+```{r echo=FALSE}
+silkm<-silhouette(km$cluster,dist(moviesCuantiCompleto))
+mean(silkm[,3]) #0.55, no es la mejor particiÃ³n pero no estÃ¡ mal
+```
+
+#### b. Silueta para método de agrupamiento con Fuzzy Cmeans
+```{r echo=FALSE}
+silfcm<-silhouette(fcm$cluster,dist(moviesCuantiCompleto))
+mean(silfcm[,3]) #0.54, no es la mejor particiÃ³n pero no estÃ¡ mal
+
+```
+
+#### c. Silueta para método de agrupamiento de mix of Gaussians
+```{r echo=FALSE}
+silmg<-silhouette(mc$classification,dist(moviesCuantiCompleto))
+mean(silmg[,3]) #0.50, no es la mejor particiÃ³n pero no estÃ¡ mal
+
+```
 
 

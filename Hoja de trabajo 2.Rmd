@@ -114,3 +114,6 @@ with(movies, mean(revenue))
 with(movies, mean(runtime))
 with(movies, mean(vote_count))
 ```
+
+### 6. Trabajo que sigue
+Con los datos obtenidos a partir del clustering en cuatro grupos se decidió que los próximos pasos a tomar son los de utilizar estos grupos para perfilar a los usuarios que ven las películas y con esto, poder mejorar el revenue a partir de estas personas. Además, nos podemos basar en las cosas que tienen en común las peliculas más populares para determinar la razón de su éxito. Ya que se tiene una similaridad entre las películas, nos podemos basar en los datos como su presupuesto, popularidad y compararlas con su éxito general para que las empresas que las realizan puedan tener un mejor entendimiento sobre las causas de este éxito, en lugar de verlo como producto de la suerte.

@@ -85,11 +85,11 @@ mean(silkm[,3]) #0.79
 Se realizó el mismo método de silueta sobre el método de agrupamiento con Fuzzy Cmeans y se determinó que, de la misma forma que el Kmeans, es una muy buena disribución, por lo tanto, por lo que los clusters están bien determinados y claramente se distinguen uno del otro.
 ```{r echo=FALSE}
 silfcm<-silhouette(fcm$cluster,dist(moviesCuantiCompleto))
-mean(silfcm[,3]) #0.77
+mean(silfcm[,3]) #0.78
 ```
 
 #### c. Silueta para método de agrupamiento de mix of Gaussians
-Por último, se realizó el método de silueta sobre el método de agrupamiento de mix of Gaussians y se obtuvo un puntaje muy cercano a 0, por lo que, a pesar de que los clusters están asignados de forma correcta (el valor no es cercano a -1) pero los clusters no están bien distanciados y por lo tanto, l mayoría de clusters son indiferentes unos con otros.
+Por último, se realizó el método de silueta sobre el método de agrupamiento de mix of Gaussians y se obtuvo un puntaje muy cercano a 0, por lo que, a pesar de que los clusters están asignados de forma correcta (el valor no es cercano a -1) pero los clusters no están bien distanciados y por lo tanto, la mayoría de clusters son indiferentes unos con otros.
 ```{r echo=FALSE}
 silmg<-silhouette(mc$classification,dist(moviesCuantiCompleto))
 mean(silmg[,3]) #-0.01

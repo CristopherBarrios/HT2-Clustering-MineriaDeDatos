@@ -93,4 +93,22 @@ mean(silfcm[,3]) #0.54, no es la mejor particiÃ³n pero no estÃ¡ mal
 #mean(silmg[,3]) #0.50, no es la mejor particiÃ³n pero no estÃ¡ mal
 
 ```
+### 5. grupos  basado  en  el  conocimiento  que  tiene  de  los  datos. 
+Con respecto a los datos podemos sacar vasado del conocimiento la media y la mediana con median y median
 
+#Mediana
+```{r echo=FALSE}
+with(movies, median(popularity))
+with(movies, median(budget))
+with(movies, median(revenue))
+with(movies, median(runtime))
+with(movies, median(vote_count))
+```
+#Media
+```{r echo=FALSE}
+with(movies, mean(popularity))
+with(movies, mean(budget))
+with(movies, mean(revenue))
+with(movies, mean(runtime))
+with(movies, mean(vote_count))
+```
